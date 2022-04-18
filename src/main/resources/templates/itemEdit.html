@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
+        th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>商品編集画面</h1>
+	<form action="#" th:action="@{/itemUpdate}" th:object="${updateForm}"
+		method="post">
+		<div>	
+			<input type="text" th:value="${category}" name="categoryName" readonly>
+		</div>
+		<div>
+			<input type="text" th:value="${name}" name="itemName"/>
+	
+		</div>
+		<span th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}" style="color: red"></span>
+		
+		<div>
+			<input type="text"  th:value="${price}" name="price"/>
+	
+		</div>
+		<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color: red"></span>
+		<input type="hidden" th:value="${itemId}" name="itemId"/>
+		<div class="float-left">
+			<button type="submit" class="btn btn-secondary btn-lg rounded-pill"
+				name="update" value="&nbsp;検索&nbsp;">更新</button>
+				
+		</div>
+		<button type="submit" name="back">戻る</button>
+	</form>
+	<p th:text="${msg}"></p>
+	
+			
+</body>
+</html>
+
+

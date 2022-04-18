@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}" rel="stylesheet" />
+      <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{js/todo.js}" defer="defer"></script>
+<title>Insert title here</title>
+</head>
+<body>
+<p th:text="${message}"></p>
+	<h1>商品情報管理画面</h1>
+	<script>
+		alert($("h1").text());
+	</script>
+	<form action="#" th:action="@{/index}" th:object="${searchForm}" method="post">
+		<div>
+			<select name="itemCategoryId">
+				<option th:each="c : ${category}"
+					th:value="${c.itemCategoryId}"
+					th:selected="${categoryId == c.itemCategoryId}">[[${c.itemCategoryName}]]</option>
+								<!--  th:selected="${uriagedate == uriage.uriage_date}"-->							
+			</select>
+		</div>
+		<a href="" target="pink">pink!!</a>
+		<div>
+			<select name="itemId">
+				<option th:each="i : ${items}"
+					th:value="${i.itemId}"
+					th:selected="${itemId == i.itemId}">[[${i.itemName}]]</option>
+								<!--  th:selected="${uriagedate == uriage.uriage_date}"-->							
+			</select>
+	
+		</div>
+		
+		<div class="float-left">
+			<button type="submit" class="btn btn-secondary btn-lg rounded-pill"
+				name="search" value="&nbsp;検索&nbsp;">検索</button>
+		</div>
+		<div class="float-left">
+			<button type="submit" class="btn btn-secondary btn-lg rounded-pill"
+				name="create">"1+1"</button>
+				<p th:text="11 + 5"></p>
+		</div>
+		
+		<div class="float-left">
+		<a th:href="@{/itemCreate}">登録</a>
+	</div>
+	</form>	
+	<form th:action="@{/index}" th:object="${updateForm}" id="form1" method="post">	
+	<table class="table table-striped">
+		 <thead class="thead-light">
+			 <tr>
+				<th>商品区分</th><th>商品名</th><th>値段</th>
+			 </tr>
+		 </thead>
+		 <tbody>
+		 <tr th:if="${result == null || result.size() == 0}">
+   			<td colspan="6">表示対象のデータはありません</td>
+ 		 </tr>
+ 		 	<th:block th:if="${#arrays.isEmpty(result)}">
+			 </th:block>
+			 <tr th:each="item,stat : ${result}">
+			 	 <td><input type="radio" th:value="${item.itemId}" name="itemId"></td>
+				 <td th:text="${item.itemCategoryName}"></td>
+				 <td th:text="${item.itemName}"></td>
+				 <td th:text="${item.price}"></td>
+				 <td><a th:href="@{'/itemUpdate/'+ ${item.itemId}}">編集</a></td>
+				 <!-- sqlでセレクトしていない値は取得できない -->
+				 <!--  <td><input type="hidden" th:value="${item.itemId}" name="itemId"/></td>-->
+				 <!--  <td><button type="button" name="update">編集</button></td>-->
+				 <td><button type="submit" name="update" id="edit">編集</button></td>
+				 <td><input type="button" value="JavaScript呼出_demo" onclick="demoTest();" /></td>
+				 <!--  <td><input type="button" name="edit " th:value="'edit'+${stat.count}" onclick="edit();"/></td>-->
+				 <td><input type="submit" name="edit" th:value="${stat.count}" onclick="edit();"/></td>
+				 <td><input type="hidden" th:value="${stat.count}" name="itemId"/></td>
+				 <td><button type="submit" name="delete" class="delete-action">削除</button></td>
+				 <td><button type="submit" name="csv">csv</button></td>
+				 <td><p th:text="${stat.index}"></p></td>
+			 </tr>
+		 </tbody>
+	 </table>
+	 </form>
+</body>
+
+
+</html>
+
+
